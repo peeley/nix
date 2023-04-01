@@ -363,12 +363,13 @@ struct GlobalConfig : public AbstractConfig
 
 extern GlobalConfig globalConfig;
 
+std::string getExperimentalFeaturesList();
 
 struct ExperimentalFeatureSettings : Config {
 
-    Setting<std::set<ExperimentalFeature>> experimentalFeatures{this, {}, "experimental-features",
-        getExperimentalFeaturesList()};
+    Setting<std::set<ExperimentalFeature>> experimentalFeatures;
 
+    ExperimentalFeatureSettings(): experimentalFeatures(this, {}, "experimental-features", getExperimentalFeaturesList()) {}
     /**
      * Check whether the given experimental feature is enabled.
      */

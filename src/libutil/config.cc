@@ -461,9 +461,26 @@ GlobalConfig::Register::Register(Config * config)
     configRegistrations->emplace_back(config);
 }
 
+std::string getExperimentalFeaturesList() {
+    std::string experimentalFeaturesList = R"(
+    Experimental Nix features to enable.
+    Current experimental features are the following:
+
+)";
+
+    std::string experimentalFeatureString;
+    // for (auto& [feature, featureStringPair] : ) {
+    //     experimentalFeatureString = "    - `" + featureStringPair.first + "`\n";
+    //     experimentalFeatureString += featureStringPair.second + "\n\n";
+    //     experimentalFeaturesList += experimentalFeatureString;
+    // }
+
+    return experimentalFeaturesList;
+}
+
 ExperimentalFeatureSettings experimentalFeatureSettings;
 
-static GlobalConfig::Register rSettings(&experimentalFeatureSettings);
+static GlobalConfig::Register rExperimentalFeatureSettings(&experimentalFeatureSettings);
 
 bool ExperimentalFeatureSettings::isEnabled(const ExperimentalFeature & feature) const
 {

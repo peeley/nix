@@ -33,10 +33,24 @@ enum struct ExperimentalFeature
  */
 using Xp = ExperimentalFeature;
 
+
+struct RegisterExperimentalFeature {
+    struct FullExperimentalFeature {
+        Xp experimentalFeature;
+        std::string featureName;
+        std::string featureDoc;
+    };
+
+    static std::vector<FullExperimentalFeature> fullXpFeatures;
+    static std::map<ExperimentalFeature, FullExperimentalFeature> xpToFullXpFeature;
+    static std::map<std::string, FullExperimentalFeature> featureNameToFullXpFeature;
+
+    RegisterExperimentalFeature(FullExperimentalFeature && feature);
+};
+
 const std::optional<ExperimentalFeature> parseExperimentalFeature(
         const std::string_view & name);
 std::string_view showExperimentalFeature(const ExperimentalFeature);
-std::string getExperimentalFeaturesList();
 
 std::ostream & operator<<(
         std::ostream & str,
